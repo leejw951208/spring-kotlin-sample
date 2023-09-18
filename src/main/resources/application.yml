@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/security
+    username: root
+    password: 1234
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          orm:
+            jdbc:
+              bind: trace
+
+jwt:
+  secret-key: asd2103_+dA9sD01casn89423Bh43298-d21evV537
+  prefix: "Bearer "
+  header: Authorization
+  issuer: ljw
+  subject: kotiln
+  access-token-expiration-hours: 1
+  refresh-token-expiration-hours: 168
