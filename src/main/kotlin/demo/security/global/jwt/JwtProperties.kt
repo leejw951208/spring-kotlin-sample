@@ -1,4 +1,4 @@
-package demo.security.global
+package demo.security.global.jwt
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
