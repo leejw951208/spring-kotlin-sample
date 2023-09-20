@@ -1,4 +1,4 @@
-package demo.security.domain
+package demo.security.domain.member
 
 enum class RoleType {
 

@@ -1,4 +1,4 @@
-package demo.security.domain.entity
+package demo.security.domain.member.entity
 
 import demo.security.global.converter.PasswordConverter
 import demo.security.global.entity.BaseEntity

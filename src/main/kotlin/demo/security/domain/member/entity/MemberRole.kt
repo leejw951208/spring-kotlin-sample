@@ -1,6 +1,6 @@
-package demo.security.domain.entity
+package demo.security.domain.member.entity
 
-import demo.security.domain.RoleType
+import demo.security.domain.member.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.springframework.data.jpa.domain.support.AuditingEntityListener

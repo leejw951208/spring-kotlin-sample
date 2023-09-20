@@ -1,4 +1,4 @@
-package demo.security.domain.dto
+package demo.security.domain.member.dto
 
 import jakarta.validation.constraints.*
 

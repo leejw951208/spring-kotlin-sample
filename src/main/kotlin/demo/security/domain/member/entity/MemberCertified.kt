@@ -1,4 +1,4 @@
-package demo.security.domain.entity
+package demo.security.domain.member.entity
 
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 class MemberCertified(
     isCertified: Boolean
     , member: Member
-    , issuedKey: String
+    , issueKey: String
 ) {
     @Id
     @Column(name = "member_id")
@@ -23,8 +23,8 @@ class MemberCertified(
         protected set
 
     @Comment("발급키")
-    @Column(name = "issued_key")
-    var issuedKey = issuedKey
+    @Column(name = "issue_key")
+    var issueKey = issueKey
         protected set
 
     @Comment("인증 여부")
