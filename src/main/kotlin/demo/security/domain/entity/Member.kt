@@ -1,5 +1,6 @@
 package demo.security.domain.entity
 
+import demo.security.global.converter.PasswordConverter
 import demo.security.global.entity.BaseEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
@@ -9,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 @Entity
 @Table(name = "t_member")
 class Member (
-    account: String
+    email: String
     , password: String
     , name: String
 ) : BaseEntity() {
@@ -17,11 +18,12 @@ class Member (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
-    @Comment("아이디")
-    @Column(name = "account", length = 30, nullable = false)
-    var account = account
+    @Comment("이메일")
+    @Column(name = "email", length = 100, nullable = false)
+    var email = email
         protected set
 
+    @Convert(converter = PasswordConverter::class)
     @Comment("비밀번호")
     @Column(name = "password", nullable = false)
     var password = password
