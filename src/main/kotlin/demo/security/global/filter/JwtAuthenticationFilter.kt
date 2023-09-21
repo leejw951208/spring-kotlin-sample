@@ -17,8 +17,8 @@ class JwtAuthenticationFilter(
         val authorizeHeader = request.getHeader(jwtProperties.header)
         if (authorizeHeader == null || !authorizeHeader.startsWith(jwtProperties.prefix)) {
             filterChain.doFilter(request, response)
+            return;
         }
-
         val token = request.getHeader(jwtProperties.header).replace(jwtProperties.prefix, "")
 
 

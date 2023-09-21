@@ -43,4 +43,8 @@ class Member (
     @Column(name = "birth_day", length = 6)
     var birthDay: String? = null
         protected set
+
+    @Comment("인증 여부")
+    @Column(name = "is_certified", nullable = false)
+    var isCertified: Boolean = false
 }

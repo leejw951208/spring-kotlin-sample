@@ -20,20 +20,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtProperties: JwtProperties
-    , private val objectMapper: ObjectMapper
+    private val jwtProperties: JwtProperties,
+    private val objectMapper: ObjectMapper
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { csrf: CsrfConfigurer<HttpSecurity> -> csrf.disable() }
-            .sessionManagement { sesstion: SessionManagementConfigurer<HttpSecurity> -> sesstion.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .sessionManagement { session: SessionManagementConfigurer<HttpSecurity> -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .formLogin { formLogin: FormLoginConfigurer<HttpSecurity> -> formLogin.disable() }
             .httpBasic { httpBasic: HttpBasicConfigurer<HttpSecurity> -> httpBasic.disable() }
             .addFilterBefore(JwtAuthenticationFilter(jwtProperties), UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(JwtExceptionFilter(objectMapper), JwtAuthenticationFilter::class.java)
             .authorizeHttpRequests { authorize ->
-                authorize.requestMatchers("/").permitAll()
+                authorize.requestMatchers("/signup").permitAll()
             }
             .exceptionHandling { exception -> exception.authenticationEntryPoint(JwtAuthenticationEntryPoint()) }
         return http.build();

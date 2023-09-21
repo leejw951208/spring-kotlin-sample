@@ -1,4 +1,4 @@
-package demo.security.listener.email
+package demo.security.domain.member.eventlistener
 
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
@@ -8,12 +8,12 @@ import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
-class EmailEventListener {
+class SignupEventHandler {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Async
-    fun sendEmail(event: EmailEvent) {
+    fun sendEmail(event: SignupEvent) {
         println("event listener")
     }
 }

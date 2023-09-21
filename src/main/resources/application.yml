@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       format_sql: true
   mail:
     host: smtp.gmail.com
@@ -27,9 +27,8 @@ logging:
     org:
       hibernate:
         type:
-          orm:
-            jdbc:
-              bind: trace
+          descriptor:
+            sql: trace
 
 jwt:
   secret-key: asd2103_+dA9sD01casn89423Bh43298-d21evV537
