@@ -5,10 +5,12 @@ spring:
     username: root
     password: 1234
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: create
-      format_sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
   mail:
     host: smtp.gmail.com
     port: 587
@@ -21,14 +23,20 @@ spring:
           timeout: 5000
           starttls:
             enable: true
+  redis:
+    host: localhost
+    port: 6379
 
 logging:
   level:
     org:
       hibernate:
-        type:
-          descriptor:
-            sql: trace
+        orm:
+          jdbc:
+            bind: trace
+#        type:
+#          descriptor:
+#            sql: trace
 
 jwt:
   secret-key: asd2103_+dA9sD01casn89423Bh43298-d21evV537
@@ -36,5 +44,5 @@ jwt:
   header: Authorization
   issuer: ljw
   subject: kotiln
-  access-token-expiration-hours: 1
-  refresh-token-expiration-hours: 168
+  access-token-exp-hours: 1
+  refresh-token-exp-hours: 168
