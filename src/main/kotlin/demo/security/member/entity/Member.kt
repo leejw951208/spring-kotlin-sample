@@ -6,6 +6,7 @@ import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.DynamicUpdate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDate
 
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener::class)
@@ -18,8 +19,7 @@ class Member (
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0L
-        protected set
+    val id: Long = 0L
 
     @Comment("이메일")
     @Column(name = "email", length = 100, nullable = false, unique = true)
@@ -42,9 +42,9 @@ class Member (
     var age: Int? = null
         protected set
 
-    @Comment("생년월일, yyMMdd")
+    @Comment("생년월일")
     @Column(name = "birth_day", length = 6)
-    var birthDay: String? = null
+    var birthDay: LocalDate? = null
         protected set
 
     @Comment("인증 상태")

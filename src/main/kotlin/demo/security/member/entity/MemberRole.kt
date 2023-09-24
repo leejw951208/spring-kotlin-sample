@@ -1,5 +1,6 @@
 package demo.security.member.entity
 
+import demo.security.common.BaseTimeEntity
 import demo.security.member.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
@@ -11,7 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 class MemberRole(
     member: Member
     , role: RoleType
-) {
+) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
