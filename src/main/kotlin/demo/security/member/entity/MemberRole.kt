@@ -1,7 +1,7 @@
 package demo.security.member.entity
 
-import demo.security.common.BaseTimeEntity
-import demo.security.member.RoleType
+import demo.security.global.entity.BaseTimeEntity
+import demo.security.member.enumeration.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.springframework.data.jpa.domain.support.AuditingEntityListener

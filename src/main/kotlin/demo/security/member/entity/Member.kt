@@ -1,7 +1,7 @@
 package demo.security.member.entity
 
-import demo.security.converter.PasswordConverter
-import demo.security.common.BaseEntity
+import demo.security.global.util.PasswordConverter
+import demo.security.global.entity.BaseEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.DynamicUpdate
@@ -13,13 +13,14 @@ import java.time.LocalDate
 @Entity
 @Table(name = "t_member")
 class Member (
-    email: String
-    , password: String
-    , name: String
+    email: String?
+    , password: String?
+    , name: String?
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L
+    var id: Long = 0L
+        protected set
 
     @Comment("이메일")
     @Column(name = "email", length = 100, nullable = false, unique = true)
@@ -47,12 +48,12 @@ class Member (
     var birthDay: LocalDate? = null
         protected set
 
-    @Comment("인증 상태")
-    @Column(name = "cert_status", nullable = false, columnDefinition = "tinyint(1)")
-    var certStatus: Boolean = false
+    @Comment("인증상태")
+    @Column(name = "is_verified", nullable = false, columnDefinition = "tinyint(1)")
+    var isVerified: Boolean = false
         protected set
 
-    fun changeCertStatus(certStatus: Boolean) {
-        this.certStatus = certStatus
+    fun isVerified(isVerified: Boolean) {
+        this.isVerified = isVerified
     }
 }
