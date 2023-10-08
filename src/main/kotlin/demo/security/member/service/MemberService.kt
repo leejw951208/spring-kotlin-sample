@@ -45,7 +45,7 @@ class MemberService(
     fun verify(signupVerificationDto: SignupVerificationDto) {
         val findMember = memberRepository.findByEmail(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "사용자 정보를 찾을 수 없습니다.")
 
-        val value = redisService.getAuthNumber(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "인증 제한시간이 초과되었습니다.")
+        val value = redisService.getAuthNumber(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.FORBIDDEN, "인증 제한시간이 초과되었습니다.")
         if (value != signupVerificationDto.number) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "인증번호가 다릅니다.")
         findMember.isVerified(true)
 
