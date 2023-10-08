@@ -22,7 +22,7 @@ class SignupEventHandler(
     @Order(1)
     @Async
     fun saveNumberToRedis(event: SignupVerificationEvent) {
-        redisService.setValue(event.receiver, event.verificationNumber.toString())
+        redisService.setAuthNumber(event.receiver, event.verificationNumber.toString())
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)

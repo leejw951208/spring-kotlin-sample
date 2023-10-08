@@ -7,7 +7,7 @@ import demo.security.member.entity.Member
 import demo.security.member.entity.MemberRole
 import demo.security.global.eventlistener.signup.SignupVerificationEvent
 import demo.security.global.jwt.JwtProvider
-import demo.security.global.jwt.JwtTokenDto
+import demo.security.member.dto.SignInResponseDto
 import demo.security.member.repository.MemberRepository
 import demo.security.member.repository.MemberRoleRepository
 import demo.security.global.redis.RedisService
@@ -45,7 +45,7 @@ class MemberService(
     fun verify(signupVerificationDto: SignupVerificationDto) {
         val findMember = memberRepository.findByEmail(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "사용자 정보를 찾을 수 없습니다.")
 
-        val value = redisService.getValue(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "인증 제한시간이 초과되었습니다.")
+        val value = redisService.getAuthNumber(signupVerificationDto.email) ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "인증 제한시간이 초과되었습니다.")
         if (value != signupVerificationDto.number) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "인증번호가 다릅니다.")
         findMember.isVerified(true)
 
@@ -53,9 +53,15 @@ class MemberService(
     }
 
     @Transactional
-    fun signin(signinRequestDto: SigninRequestDto): JwtTokenDto {
+    fun signin(signinRequestDto: SigninRequestDto): SignInResponseDto {
         val authenticationToken = UsernamePasswordAuthenticationToken(signinRequestDto.email, signinRequestDto.password)
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
-        return jwtProvider.generateToken(authentication)
+
+        val generateToken = jwtProvider.generateToken(authentication.name, authentication.authorities.joinToString(",") { it.authority })
+        generateToken.email = signinRequestDto.email
+
+        redisService.setRefreshToken(authentication.name, generateToken.refreshToken)
+
+        return generateToken
     }
 }

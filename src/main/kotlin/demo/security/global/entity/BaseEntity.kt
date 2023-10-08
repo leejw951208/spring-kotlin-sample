@@ -9,13 +9,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 class BaseEntity: BaseTimeEntity() {
-    @Comment("등록자 아이디")
-    @Column(name = "reg_id")
-    var regId: String? = null
+    @Comment("등록자")
+    @Column(name = "created_user_id")
+    var createdUserId: Long? = null
         protected set
 
-    @Comment("수정자 아이디")
-    @Column(name = "mod_id")
-    var modId: String? = null
+    @Comment("수정자")
+    @Column(name = "modified_user_id")
+    var modifiedUserId: Long? = null
         protected set
 }

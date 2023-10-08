@@ -1,6 +1,6 @@
 package demo.security.member.controller
 
-import demo.security.global.jwt.JwtTokenDto
+import demo.security.member.dto.SignInResponseDto
 import demo.security.global.security.principal.PrincipalDetails
 import demo.security.member.dto.SigninRequestDto
 import demo.security.member.dto.SignupVerificationDto
@@ -31,7 +31,7 @@ class MemberController(
     }
 
     @PostMapping("/signin")
-    fun signin(@Validated @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<JwtTokenDto> {
+    fun signin(@Validated @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SignInResponseDto> {
         return ResponseEntity.ok(memberService.signin(signinRequestDto))
     }
 

@@ -1,14 +1,13 @@
 package demo.security.global.jwt
 
 import demo.security.global.security.principal.PrincipalDetails
+import demo.security.member.dto.SignInResponseDto
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.UnsupportedJwtException
-import io.jsonwebtoken.io.Decoders
-import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -18,12 +17,8 @@ import org.springframework.stereotype.Component
 import org.springframework.web.server.ResponseStatusException
 import java.lang.IllegalArgumentException
 import java.nio.charset.StandardCharsets
-import java.security.Key
-import java.sql.Timestamp
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-import java.util.ArrayList
 import java.util.Date
 import javax.crypto.spec.SecretKeySpec
 
@@ -34,17 +29,17 @@ class JwtProvider(
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
-    fun generateToken(authentication: Authentication): JwtTokenDto {
+    fun generateToken(memberId: String, roles: String): SignInResponseDto {
         val accessToken = Jwts.builder()
-            .setSubject(authentication.name)
-            .claim("auth", authentication.authorities.joinToString(","))
+            .setSubject(memberId)
+            .claim("auth", roles)
             .signWith(
                 SecretKeySpec(
                     jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),
                     SignatureAlgorithm.HS256.jcaName
                 )
             )
-            .setExpiration(Date.from(Instant.now().plus(jwtProperties.accessTokenExpHours, ChronoUnit.HOURS)))
+            .setExpiration(Date.from(Instant.now().plus(jwtProperties.accessTokenExpTime, ChronoUnit.HOURS)))
             .compact()
 
         val refreshToken = Jwts.builder()
@@ -54,10 +49,10 @@ class JwtProvider(
                     SignatureAlgorithm.HS256.jcaName
                 )
             )
-            .setExpiration(Date.from(Instant.now().plus(jwtProperties.refreshTokenExpHours, ChronoUnit.HOURS)))
+            .setExpiration(Date.from(Instant.now().plus(jwtProperties.refreshTokenExpTime, ChronoUnit.HOURS)))
             .compact()
 
-        return JwtTokenDto(accessToken, refreshToken)
+        return SignInResponseDto(memberId.toLong(), null, accessToken, refreshToken)
     }
 
     fun verify(token: String?) {
@@ -69,7 +64,7 @@ class JwtProvider(
         } catch (e: MalformedJwtException) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         } catch (e: ExpiredJwtException) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
         } catch (e: UnsupportedJwtException) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         } catch (e: IllegalArgumentException) {

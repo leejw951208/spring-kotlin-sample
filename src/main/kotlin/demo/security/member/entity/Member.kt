@@ -27,8 +27,8 @@ class Member (
     var email = email
         protected set
 
-    @Convert(converter = PasswordConverter::class)
     @Comment("비밀번호")
+    @Convert(converter = PasswordConverter::class)
     @Column(name = "password", nullable = false)
     var password = password
         protected set

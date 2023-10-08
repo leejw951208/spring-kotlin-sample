@@ -23,6 +23,6 @@ class PrincipalDetailsService(
         )
         val findMemberRoles = memberRoleRepository.findByMember(findMember)
         val authorities: Collection<GrantedAuthority> = findMemberRoles.map { GrantedAuthority { it.role.name }}
-        return PrincipalDetails(findMember.name, findMember.password, authorities)
+        return PrincipalDetails(findMember.id.toString(), findMember.password, authorities)
     }
 }

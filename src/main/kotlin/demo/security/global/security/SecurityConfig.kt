@@ -39,7 +39,8 @@ class SecurityConfig(
             .addFilterBefore(JwtAuthenticationFilter(jwtProperties, jwtProvider), UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(JwtExceptionFilter(objectMapper), JwtAuthenticationFilter::class.java)
             .authorizeHttpRequests { authorize ->
-                authorize.requestMatchers("/signup/**", "/signin", "/signin/**").permitAll()
+                authorize.requestMatchers("/signup/**", "/signin", "/signin/**", "/jwt/**").permitAll()
+                authorize.anyRequest().authenticated()
             }
             .exceptionHandling { exception -> exception.authenticationEntryPoint(JwtAuthenticationEntryPoint()) }
         return http.build();

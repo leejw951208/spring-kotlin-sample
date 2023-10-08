@@ -44,5 +44,5 @@ jwt:
   header: Authorization
   issuer: ljw
   subject: kotiln
-  access-token-exp-hours: 1
-  refresh-token-exp-hours: 168
+  access-token-exp-time: 1
+  refresh-token-exp-time: 168
