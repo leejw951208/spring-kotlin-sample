@@ -9,8 +9,8 @@
 <br/><br/>토큰 만료
 <br/>1) 액세스 토큰 만료시 토큰 재발급 API 호출
 <br/>2) 리프레시 토큰 만료시 다시 로그인 하여 토큰 발급
-## API List
-<br/>회원가입
+## API
+회원가입
 ```
 POST http://localhost:8080/signup
 {
