@@ -21,15 +21,15 @@ class SignupEventHandler(
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Order(1)
     @Async
-    fun saveNumberToRedis(event: SignupVerificationEvent) {
-        redisService.setAuthNumber(event.receiver, event.verificationNumber.toString())
+    fun saveNumber(event: SignupApproveEvent) {
+        redisService.setAuthNumber(event.approveNumber.toString(), event.email)
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Order(2)
+    @Order(1)
     @Async
-    fun sendEmail(event: SignupVerificationEvent) {
+    fun sendEmail(event: SignupEmailSendEvent) {
         mailService.send(MailDto(event.receiver, event.title, event.content))
     }
 }

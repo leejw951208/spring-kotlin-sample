@@ -15,7 +15,7 @@ class MemberRoleEntity(
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0L
+    var id: Long? = null
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)

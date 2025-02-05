@@ -1,16 +1,16 @@
-package demo.kotlinboilerplate.member.dto
+package demo.kotlinboilerplate.auth.dto
 
 import jakarta.validation.constraints.*
 
 data class SignupRequestDto(
     @field:NotBlank(message = "이메일은 필수 입니다.")
-    val email: String?,
+    val email: String,
 
     @field:NotBlank(message = "비밀번호는 필수 입니다.")
-    val password: String?,
+    val password: String,
 
     @field:NotBlank(message = "이름은 필수 입니다.")
-    val name: String?,
+    val name: String,
     val age: Int?,
     val birthDay: String?
 )

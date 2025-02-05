@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.global.jwt
 
 import demo.kotlinboilerplate.global.security.principal.PrincipalDetails
-import demo.kotlinboilerplate.member.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.SignInResponseDto
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts

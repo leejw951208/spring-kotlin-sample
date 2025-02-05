@@ -1,4 +1,4 @@
-package demo.kotlinboilerplate.member.dto
+package demo.kotlinboilerplate.auth.dto
 
 data class SignInResponseDto(
     var memberId: Long?,

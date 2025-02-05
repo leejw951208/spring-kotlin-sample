@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.global.jwt.service
 
 import demo.kotlinboilerplate.global.jwt.JwtProvider
-import demo.kotlinboilerplate.member.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.SignInResponseDto
 import demo.kotlinboilerplate.global.jwt.JwtReIssueTokenDto
 import demo.kotlinboilerplate.global.redis.RedisService
 import demo.kotlinboilerplate.member.persistence.repository.MemberRepository

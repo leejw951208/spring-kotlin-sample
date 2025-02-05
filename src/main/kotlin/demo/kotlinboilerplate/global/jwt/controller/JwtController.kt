@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.global.jwt.controller
 
-import demo.kotlinboilerplate.member.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.SignInResponseDto
 import demo.kotlinboilerplate.global.jwt.JwtReIssueTokenDto
 import demo.kotlinboilerplate.global.jwt.service.JwtService
 import org.springframework.http.ResponseEntity

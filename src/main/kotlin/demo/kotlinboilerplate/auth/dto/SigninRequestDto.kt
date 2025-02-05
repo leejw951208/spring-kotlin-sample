@@ -1,4 +1,4 @@
-package demo.kotlinboilerplate.member.dto
+package demo.kotlinboilerplate.auth.dto
 
 import jakarta.validation.constraints.NotBlank
 
