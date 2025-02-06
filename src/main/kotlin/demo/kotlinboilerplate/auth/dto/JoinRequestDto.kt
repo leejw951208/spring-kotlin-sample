@@ -2,7 +2,7 @@ package demo.kotlinboilerplate.auth.dto
 
 import jakarta.validation.constraints.*
 
-data class SignupRequestDto(
+data class JoinRequestDto(
     @field:NotBlank(message = "이메일은 필수 입니다.")
     val email: String,
 

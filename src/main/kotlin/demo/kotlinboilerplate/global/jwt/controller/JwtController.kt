@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.global.jwt.controller
 
-import demo.kotlinboilerplate.auth.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.LoginResponseDto
 import demo.kotlinboilerplate.global.jwt.JwtReIssueTokenDto
 import demo.kotlinboilerplate.global.jwt.service.JwtService
 import org.springframework.http.ResponseEntity
@@ -13,7 +13,7 @@ class JwtController(
     private val jwtService: JwtService
 ) {
     @PostMapping("/jwt/refresh")
-    fun reIssueJwtToken(@RequestBody jwtReIssueTokenDto: JwtReIssueTokenDto): ResponseEntity<SignInResponseDto> {
+    fun reIssueJwtToken(@RequestBody jwtReIssueTokenDto: JwtReIssueTokenDto): ResponseEntity<LoginResponseDto> {
         return ResponseEntity.ok(jwtService.reIssueJwtToken(jwtReIssueTokenDto))
     }
 }

@@ -1,5 +1,5 @@
 package demo.kotlinboilerplate.auth.dto
 
-data class SignupApproveDto(
+data class JoinApproveRequestDto(
     val approveNumber: String
 )

@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.global.jwt
 
 import demo.kotlinboilerplate.global.security.principal.PrincipalDetails
-import demo.kotlinboilerplate.auth.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.LoginResponseDto
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -29,7 +29,10 @@ class JwtProvider(
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
-    fun generateToken(memberId: String, roles: String): SignInResponseDto {
+    fun generateToken(email: String, authentication: Authentication): LoginResponseDto {
+        val memberId = authentication.name
+        val roles = authentication.authorities.joinToString(",") { it.authority }
+
         val accessToken = Jwts.builder()
             .setSubject(memberId)
             .claim("auth", roles)
@@ -52,7 +55,7 @@ class JwtProvider(
             .setExpiration(Date.from(Instant.now().plus(jwtProperties.refreshTokenExpTime, ChronoUnit.HOURS)))
             .compact()
 
-        return SignInResponseDto(memberId.toLong(), null, accessToken, refreshToken)
+        return LoginResponseDto(memberId.toLong(), email, accessToken, refreshToken)
     }
 
     fun verify(token: String?) {

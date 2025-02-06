@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.global.jwt.service
 
 import demo.kotlinboilerplate.global.jwt.JwtProvider
-import demo.kotlinboilerplate.auth.dto.SignInResponseDto
+import demo.kotlinboilerplate.auth.dto.LoginResponseDto
 import demo.kotlinboilerplate.global.jwt.JwtReIssueTokenDto
 import demo.kotlinboilerplate.global.redis.RedisService
 import demo.kotlinboilerplate.member.persistence.repository.MemberRepository
@@ -19,7 +19,7 @@ class JwtService(
     private val redisService: RedisService
 ) {
 
-    fun reIssueJwtToken(jwtReIssueTokenDto: JwtReIssueTokenDto): SignInResponseDto {
+    fun reIssueJwtToken(jwtReIssueTokenDto: JwtReIssueTokenDto): LoginResponseDto {
         val findRefreshToken = redisService.getRefreshToken(jwtReIssueTokenDto.memberId.toString()) ?: throw ResponseStatusException(
             HttpStatus.UNAUTHORIZED,
             "expired refresh token, please login"
