@@ -1,8 +1,8 @@
 package demo.kotlinboilerplate.global.jwt.service
 
 import demo.kotlinboilerplate.global.jwt.JwtProvider
-import demo.kotlinboilerplate.auth.dto.LoginResponseDto
-import demo.kotlinboilerplate.global.jwt.JwtReIssueTokenDto
+import demo.kotlinboilerplate.global.jwt.dto.TokenRequestDto
+import demo.kotlinboilerplate.global.jwt.dto.TokenResponseDto
 import demo.kotlinboilerplate.global.redis.RedisService
 import demo.kotlinboilerplate.member.persistence.repository.MemberRepository
 import demo.kotlinboilerplate.member.persistence.repository.MemberRoleRepository
@@ -18,27 +18,25 @@ class JwtService(
     private val memberRoleRepository: MemberRoleRepository,
     private val redisService: RedisService
 ) {
+    fun createJwtToken(requestDto: TokenRequestDto): TokenResponseDto {
+        val memberId = requestDto.memberId
+        val refreshToken = requestDto.refreshToken
 
-    fun reIssueJwtToken(jwtReIssueTokenDto: JwtReIssueTokenDto): LoginResponseDto {
-        val findRefreshToken = redisService.getRefreshToken(jwtReIssueTokenDto.memberId.toString()) ?: throw ResponseStatusException(
+        val findRefreshToken = redisService.getValue(memberId.toString()) ?: throw ResponseStatusException(
             HttpStatus.UNAUTHORIZED,
-            "expired refresh token, please login"
+            "만료된 토큰입니다. 다시 로그인 해주세요"
         )
-        if (findRefreshToken != jwtReIssueTokenDto.refreshToken) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "not equals refresh token")
+        if (findRefreshToken != refreshToken) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "토큰을 재발급 받을 수 없습니다.")
 
-        jwtProvider.verify(jwtReIssueTokenDto.refreshToken)
-
-        val findMember = memberRepository.findByIdOrNull(jwtReIssueTokenDto.memberId) ?: throw ResponseStatusException(
+        val findMember = memberRepository.findByIdOrNull(memberId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
-            "not found member"
+            "사용자 정보를 찾을 수 없습니다."
         )
         val findMemberRoles = memberRoleRepository.findByMember(findMember)
 
-        val generateToken = jwtProvider.generateToken(findMember.id.toString(), findMemberRoles.joinToString(",") { it.role.name })
-        generateToken.email = findMember.email
+        val createdToken = jwtProvider.createToken(findMember.id.toString(), findMemberRoles.joinToString(",") { it.role.name })
+        redisService.setValue(findMember.id.toString(), createdToken.refreshToken)
 
-        redisService.setRefreshToken(findMember.id.toString(), generateToken.refreshToken)
-
-        return generateToken
+        return TokenResponseDto.from(createdToken)
     }
 }

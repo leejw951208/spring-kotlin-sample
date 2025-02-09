@@ -17,7 +17,7 @@ class BaseTimeEntity {
         protected set
 
     @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    @Column(name = "updated_at")
+    var updatedAt: LocalDateTime? = null
         protected set
 }

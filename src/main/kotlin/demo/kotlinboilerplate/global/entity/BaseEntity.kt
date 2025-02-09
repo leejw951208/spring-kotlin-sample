@@ -15,7 +15,7 @@ class BaseEntity: BaseTimeEntity() {
         protected set
 
     @Comment("수정자")
-    @Column(name = "updated_by", nullable = false)
+    @Column(name = "updated_by")
     var updatedBy: Long? = null
         protected set
 }

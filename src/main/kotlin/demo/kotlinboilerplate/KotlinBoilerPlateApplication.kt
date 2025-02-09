@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableAsync
 @EnableCaching
 @EnableAsync
 @SpringBootApplication
-class SecurityApplication
+class KotlinBoilerPlateApplication
 
 fun main(args: Array<String>) {
-	runApplication<SecurityApplication>(*args)
+	runApplication<KotlinBoilerPlateApplication>(*args)
 }

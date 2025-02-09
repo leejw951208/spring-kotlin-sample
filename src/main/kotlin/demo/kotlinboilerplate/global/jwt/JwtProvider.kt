@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.global.jwt
 
 import demo.kotlinboilerplate.global.security.principal.PrincipalDetails
-import demo.kotlinboilerplate.auth.dto.LoginResponseDto
+import demo.kotlinboilerplate.global.jwt.vo.CreateToken
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -26,16 +26,12 @@ import javax.crypto.spec.SecretKeySpec
 class JwtProvider(
     private val jwtProperties: JwtProperties
 ) {
-
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
-    fun generateToken(email: String, authentication: Authentication): LoginResponseDto {
-        val memberId = authentication.name
-        val roles = authentication.authorities.joinToString(",") { it.authority }
-
+    fun createToken(memberId: String, memberRole: String): CreateToken {
         val accessToken = Jwts.builder()
             .setSubject(memberId)
-            .claim("auth", roles)
+            .claim("auth", memberRole)
             .signWith(
                 SecretKeySpec(
                     jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),
@@ -55,7 +51,7 @@ class JwtProvider(
             .setExpiration(Date.from(Instant.now().plus(jwtProperties.refreshTokenExpTime, ChronoUnit.HOURS)))
             .compact()
 
-        return LoginResponseDto(memberId.toLong(), email, accessToken, refreshToken)
+        return CreateToken(accessToken, refreshToken)
     }
 
     fun verify(token: String?) {

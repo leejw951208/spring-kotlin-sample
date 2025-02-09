@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +30,7 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity, introspector: HandlerMappingIntrospector): SecurityFilterChain {
         http
             .csrf { csrf: CsrfConfigurer<HttpSecurity> -> csrf.disable() }
             .sessionManagement { session: SessionManagementConfigurer<HttpSecurity> -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
@@ -37,7 +39,12 @@ class SecurityConfig(
             .addFilterBefore(JwtAuthenticationFilter(jwtProperties, jwtProvider), UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(JwtExceptionFilter(objectMapper), JwtAuthenticationFilter::class.java)
             .authorizeHttpRequests { authorize ->
-                authorize.requestMatchers("/signup/**", "/signin", "/signin/**", "/jwt/**").permitAll()
+                authorize.requestMatchers(
+                    MvcRequestMatcher(introspector, "/join"),
+                    MvcRequestMatcher(introspector, "/login"),
+                    MvcRequestMatcher(introspector,"/jwt/**"),
+                    MvcRequestMatcher(introspector,"/h2-console/**")
+                ).permitAll()
                 authorize.anyRequest().authenticated()
             }
             .exceptionHandling { exception -> exception.authenticationEntryPoint(JwtAuthenticationEntryPoint()) }

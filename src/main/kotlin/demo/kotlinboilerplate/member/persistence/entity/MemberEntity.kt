@@ -51,7 +51,7 @@ class MemberEntity (
         protected set
 
     @Comment("승인여부")
-    @Column(name = "is_approved", nullable = false, columnDefinition = "tinyint(1)")
+    @Column(name = "is_approved", nullable = false)
     var isApproved: Boolean = false
         protected set
 
