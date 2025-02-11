@@ -32,6 +32,7 @@ class JwtProvider(
         val accessToken = Jwts.builder()
             .setSubject(memberId)
             .claim("auth", memberRole)
+            .claim("isApproved", memberRole == "true")
             .signWith(
                 SecretKeySpec(
                     jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),

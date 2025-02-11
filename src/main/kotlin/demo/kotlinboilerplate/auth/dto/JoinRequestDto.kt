@@ -11,6 +11,4 @@ data class JoinRequestDto(
 
     @field:NotBlank(message = "이름은 필수 입니다.")
     val name: String,
-    val age: Int?,
-    val birthDay: String?
 )

@@ -40,16 +40,6 @@ class MemberEntity (
     var name = name
         protected set
 
-    @Comment("나이")
-    @Column(name = "age", length = 3)
-    var age: Int? = null
-        protected set
-
-    @Comment("생년월일")
-    @Column(name = "birth_day", length = 6)
-    var birthDay: LocalDate? = null
-        protected set
-
     @Comment("승인여부")
     @Column(name = "is_approved", nullable = false)
     var isApproved: Boolean = false
@@ -62,5 +52,9 @@ class MemberEntity (
 
     fun isApproved(isApproved: Boolean) {
         this.isApproved = isApproved
+    }
+
+    fun setCreatedBy(createdBy: Long) {
+        this.createdBy = createdBy
     }
 }

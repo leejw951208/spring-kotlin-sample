@@ -15,7 +15,7 @@ class AuthController(
     @PostMapping("/join")
     fun join(@Validated @RequestBody requestDto: JoinRequestDto): ResponseEntity<String> {
         authService.join(requestDto)
-        return ResponseEntity.ok("인증번호가 발송되었습니다. 인증 제한시간은 3분 입니다.")
+        return ResponseEntity.ok("가입이 완료되었습니다.")
     }
     @PostMapping("/login")
     fun login(@Validated @RequestBody requestDto: LoginRequestDto): ResponseEntity<LoginResponseDto> {

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 class JwtController(
     private val jwtService: JwtService
 ) {
-    @PostMapping("/jwt/refresh")
-    fun createJwtToken(@RequestBody requestDto: TokenRequestDto): ResponseEntity<TokenResponseDto> {
-        return ResponseEntity.ok(jwtService.createJwtToken(requestDto))
-    }
+//    @PostMapping("/jwt/refresh")
+//    fun createJwtToken(@RequestBody requestDto: TokenRequestDto): ResponseEntity<TokenResponseDto> {
+//        return ResponseEntity.ok(jwtService.createJwtToken(requestDto))
+//    }
 }
