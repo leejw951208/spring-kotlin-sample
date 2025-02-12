@@ -1,17 +1,22 @@
 package demo.kotlinboilerplate.member.service
 
+import demo.kotlinboilerplate.member.domain.Member
+import demo.kotlinboilerplate.member.dto.MemberResponseDto
+import demo.kotlinboilerplate.member.mapper.MemberMapper
 import demo.kotlinboilerplate.member.persistence.repository.MemberEntityRepository
 import demo.kotlinboilerplate.member.persistence.repository.MemberRoleEntityRepository
+import demo.kotlinboilerplate.member.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberService(
-    private val memberRepository: MemberEntityRepository,
-    private val memberRoleRepository: MemberRoleEntityRepository
+    private val memberRepository: MemberRepository,
+    private val memberMapper: MemberMapper,
 ) {
     @Transactional(readOnly = true)
-    fun findMember() {
-
+    fun findMember(memberId: Long): MemberResponseDto {
+        val findMember = memberRepository.findById(memberId)
+        return memberMapper.toDto(findMember)
     }
 }

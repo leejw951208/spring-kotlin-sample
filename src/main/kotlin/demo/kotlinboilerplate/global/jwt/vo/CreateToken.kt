@@ -1,7 +1,12 @@
 package demo.kotlinboilerplate.global.jwt.vo
 
-data class CreateToken (
+class CreateToken (
     val accessToken: String,
     val refreshToken: String,
 ) {
+    companion object {
+        fun from(accessToken: String, refreshToken: String): CreateToken {
+            return CreateToken(accessToken, refreshToken)
+        }
+    }
 }

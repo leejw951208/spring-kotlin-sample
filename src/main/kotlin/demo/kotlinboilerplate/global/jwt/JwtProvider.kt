@@ -52,7 +52,7 @@ class JwtProvider(
             .setExpiration(Date.from(Instant.now().plus(jwtProperties.refreshTokenExpTime, ChronoUnit.HOURS)))
             .compact()
 
-        return CreateToken(accessToken, refreshToken)
+        return CreateToken.from(accessToken, refreshToken)
     }
 
     fun verify(token: String?) {
