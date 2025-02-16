@@ -1,7 +1,7 @@
 package demo.kotlinboilerplate.member.persistence.entity
 
-import demo.kotlinboilerplate.global.entity.BaseTimeEntity
-import demo.kotlinboilerplate.global.enumeration.RoleType
+import demo.kotlinboilerplate.common.entity.BaseTimeEntity
+import demo.kotlinboilerplate.member.enumeration.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -15,8 +15,7 @@ class MemberRoleEntity(
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-        protected set
+    val id: Long? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

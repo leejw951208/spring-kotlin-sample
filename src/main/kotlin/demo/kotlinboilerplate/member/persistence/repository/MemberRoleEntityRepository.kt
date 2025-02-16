@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface MemberRoleEntityRepository : JpaRepository<MemberRoleEntity, Long> {
-
-    fun findByMember(member: MemberEntity): List<MemberRoleEntity>
+    fun findByMemberId(memberId: Long): List<MemberRoleEntity>
 }

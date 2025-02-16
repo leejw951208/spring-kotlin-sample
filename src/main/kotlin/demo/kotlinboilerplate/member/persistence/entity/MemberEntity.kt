@@ -1,13 +1,11 @@
 package demo.kotlinboilerplate.member.persistence.entity
 
-import demo.kotlinboilerplate.global.util.PasswordConverter
-import demo.kotlinboilerplate.global.entity.BaseEntity
+import demo.kotlinboilerplate.common.util.PasswordConverter
+import demo.kotlinboilerplate.common.entity.BaseEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.DynamicUpdate
-import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @DynamicUpdate
