@@ -34,6 +34,7 @@ java {
 
 repositories {
 	mavenCentral()
+	maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
@@ -50,6 +51,10 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
+	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.4")
+	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.4")
+	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.4")
 
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")

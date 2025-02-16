@@ -5,7 +5,7 @@ import demo.kotlinboilerplate.member.dto.MemberResponseDto
 import demo.kotlinboilerplate.member.persistence.entity.MemberEntity
 import org.mapstruct.Mapper
 
-@Mapper
+@Mapper(componentModel = "spring")
 interface MemberMapper {
     fun toDto(member: Member): MemberResponseDto
     fun toDomain(entity: MemberEntity): Member
