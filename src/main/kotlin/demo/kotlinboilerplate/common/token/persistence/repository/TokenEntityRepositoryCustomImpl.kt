@@ -22,8 +22,4 @@ class TokenEntityRepositoryCustomImpl(
                 )
         }.firstOrNull()
     }
-
-    override fun existsToken(memberId: Long, refreshToken: String, issuedAt: LocalDateTime, expiredAt: LocalDateTime): Boolean {
-        return findToken(memberId, refreshToken, issuedAt, expiredAt) != null
-    }
 }

@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.member.persistence.entity
 
-import demo.kotlinboilerplate.common.entity.BaseTimeEntity
+import demo.kotlinboilerplate.common.base.SoftDeleteEntity
 import demo.kotlinboilerplate.member.enumeration.RoleType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
@@ -10,12 +10,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 @Entity
 @Table(name = "t_member_role")
 class MemberRoleEntity(
-    member: MemberEntity
+    id: Long?
+    , member: MemberEntity
     , role: RoleType
-) : BaseTimeEntity() {
+) : SoftDeleteEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id = id
+        protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

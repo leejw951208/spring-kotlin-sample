@@ -1,10 +1,10 @@
 package demo.kotlinboilerplate.common.util
 
 import jakarta.persistence.AttributeConverter
-import jakarta.persistence.Convert
+import jakarta.persistence.Converter
 import org.springframework.security.crypto.password.PasswordEncoder
 
-@Convert
+@Converter
 class PasswordConverter(
     private val passwordEncoder: PasswordEncoder
 ) : AttributeConverter<String, String> {

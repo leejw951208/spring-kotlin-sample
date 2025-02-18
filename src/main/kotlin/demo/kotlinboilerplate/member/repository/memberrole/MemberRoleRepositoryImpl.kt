@@ -13,7 +13,7 @@ class MemberRoleRepositoryImpl(
     private val memberRoleMapper: MemberRoleMapper,
     private val memberRoleEntityRepository: MemberRoleEntityRepository
 ): MemberRoleRepository {
-    override fun findMemberRoles(memberId: Long): List<MemberRole> {
+    override fun findMemberRoles(memberId: Long?): List<MemberRole> {
         val findMemberRoles = memberRoleEntityRepository.findByMemberId(memberId)
         return memberRoleMapper.toDomain(findMemberRoles)
     }

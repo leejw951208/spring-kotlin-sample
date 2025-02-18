@@ -1,20 +1,19 @@
 package demo.kotlinboilerplate.common.token.persistence.entity
 
-import demo.kotlinboilerplate.member.persistence.entity.MemberEntity
+import demo.kotlinboilerplate.common.base.BaseEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.DynamicUpdate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
-import java.util.*
 
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener::class)
 @Entity
 @Table(name = "t_token")
-class TokenEntity(memberId: Long, refreshToken: String, issuedAt: Date) {
+class TokenEntity(id: Long?, memberId: Long, refreshToken: String, issuedAt: LocalDateTime) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id = id
         protected set
 
     @Column(name = "member_id", nullable = false)
@@ -26,5 +25,6 @@ class TokenEntity(memberId: Long, refreshToken: String, issuedAt: Date) {
         protected set
 
     @Column(name = "issued_at", nullable = false)
-    var issuedAt: LocalDateTime? = null
+    var issuedAt = issuedAt
+        protected set
 }

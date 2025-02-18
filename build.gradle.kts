@@ -9,8 +9,6 @@ plugins {
 
 	kotlin("plugin.allopen") version "1.8.22"
 	kotlin("plugin.noarg") version "1.8.22"
-
-	kotlin("kapt") version "2.1.10"
 }
 
 allOpen {
@@ -48,17 +46,13 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.h2database:h2")
+	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 
 	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.4")
 	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.4")
 	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.4")
-
-	implementation("org.mapstruct:mapstruct:1.5.5.Final")
-	kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
-	kaptTest("org.mapstruct:mapstruct-processor:1.5.5.Final")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,7 +1,9 @@
 package demo.kotlinboilerplate.member.persistence.entity
 
 import demo.kotlinboilerplate.common.util.PasswordConverter
-import demo.kotlinboilerplate.common.entity.BaseEntity
+import demo.kotlinboilerplate.common.base.SoftDeleteEntity
+import demo.kotlinboilerplate.member.domain.Member
+import demo.kotlinboilerplate.member.domain.MemberSave
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.DynamicUpdate
@@ -13,13 +15,15 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "t_member")
 class MemberEntity (
-    email: String?
-    , password: String?
-    , name: String?
-) : BaseEntity() {
+    id: Long?
+    , email: String
+    , password: String
+    , name: String
+) : SoftDeleteEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id = id
+        protected set
 
     @Comment("이메일")
     @Column(name = "email", length = 100, nullable = false, unique = true)
@@ -49,9 +53,5 @@ class MemberEntity (
 
     fun isApproved(isApproved: Boolean) {
         this.isApproved = isApproved
-    }
-
-    fun setCreatedBy(createdBy: Long) {
-        this.createdBy = createdBy
     }
 }

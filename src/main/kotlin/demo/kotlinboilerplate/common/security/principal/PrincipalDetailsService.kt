@@ -20,7 +20,9 @@ class PrincipalDetailsService(
             "사용자 정보가 없습니다."
         )
         if (!findMember.isApproved) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "가입 승인이 완료되지 않았습니다.")
+
         val findMemberRoles = memberRoleRepository.findByMemberId(findMember.id)
+
         val authorities: Collection<GrantedAuthority> = findMemberRoles.map { GrantedAuthority { it.role.name }}
         return PrincipalDetails(findMember.id.toString(), findMember.password, authorities)
     }

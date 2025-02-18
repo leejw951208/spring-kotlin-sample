@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface TokenEntityRepository: JpaRepository<TokenEntity, Long>, TokenEntityRepositoryCustom {
+    fun findByMemberId(memberId: Long): TokenEntity?
 }
