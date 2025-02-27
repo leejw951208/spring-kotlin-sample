@@ -15,5 +15,5 @@ import org.springframework.scheduling.annotation.EnableAsync
 class KotlinBoilerPlateApplication
 
 fun main(args: Array<String>) {
-	runApplication<KotlinBoilerPlateApplication>(*args)
+    runApplication<KotlinBoilerPlateApplication>(*args)
 }

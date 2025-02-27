@@ -1,29 +1,30 @@
 package demo.kotlinboilerplate.common.security.principal
 
-import demo.kotlinboilerplate.member.persistence.repository.MemberEntityRepository
-import demo.kotlinboilerplate.member.persistence.repository.MemberRoleEntityRepository
-import org.springframework.http.HttpStatus
+import demo.kotlinboilerplate.common.exception.BaseException
+import demo.kotlinboilerplate.common.exception.ExceptionEnum
+import demo.kotlinboilerplate.user.user.repository.UserRepository
+import demo.kotlinboilerplate.user.userrole.repository.UserRoleRepository
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
-import org.springframework.web.server.ResponseStatusException
 
 @Service
 class PrincipalDetailsService(
-    private val memberRepository: MemberEntityRepository,
-    private val memberRoleRepository: MemberRoleEntityRepository
-): UserDetailsService {
-    override fun loadUserByUsername(username: String): UserDetails {
-        val findMember = memberRepository.findByEmail(username) ?: throw ResponseStatusException(
-            HttpStatus.BAD_REQUEST,
-            "사용자 정보가 없습니다."
-        )
-        if (!findMember.isApproved) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "가입 승인이 완료되지 않았습니다.")
+    private val userRepository: UserRepository,
+    private val userRoleRepository: UserRoleRepository,
+) : UserDetailsService {
+    override fun loadUserByUsername(email: String): UserDetails {
+        val findUser =
+            userRepository.findUser(email)
+                ?: throw BaseException(ExceptionEnum.NOT_FOUND_USER, this::class.java.name, null)
 
-        val findMemberRoles = memberRoleRepository.findByMemberId(findMember.id)
+        val findRoleList = userRoleRepository.findUserRoles(findUser.id!!)
+        if (findRoleList.isEmpty()) {
+            throw BaseException(ExceptionEnum.FORBIDDEN, this::class.java.name, null)
+        }
 
-        val authorities: Collection<GrantedAuthority> = findMemberRoles.map { GrantedAuthority { it.role.name }}
-        return PrincipalDetails(findMember.id.toString(), findMember.password, authorities)
+        val authorities: Collection<GrantedAuthority> = findRoleList.map { GrantedAuthority { it.role.name } }
+        return PrincipalDetails(findUser.id.toString(), findUser.password, authorities)
     }
 }

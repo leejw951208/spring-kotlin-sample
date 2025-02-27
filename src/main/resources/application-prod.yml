@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import:
+      - classpath:import/prod.properties
+  datasource:
+    hikari:
+      auto-commit: false
+      minimum-idle: 3
+      maximum-pool-size: 10

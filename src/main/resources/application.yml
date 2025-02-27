@@ -1,15 +1,27 @@
+server:
+  servlet:
+    context-path: "/api/v1"
+    encoding:
+      force: true
+      charset: utf-8
+
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/kotlin
-    username: postgres
-    password: postgres
+  application:
+    name: kotlin-sample
+  profiles:
+    active: local
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    clean-disabled: true
 
 logging:
   level:
@@ -18,15 +30,3 @@ logging:
         orm:
           jdbc:
             bind: trace
-#        type:
-#          descriptor:
-#            sql: trace
-
-jwt:
-  secret-key: asd2103_+dA9sD01casn89423Bh43298-d21evV537
-  prefix: "Bearer "
-  header: Authorization
-  issuer: leejw
-  subject: kotiln
-  access-token-exp-time: 1
-  refresh-token-exp-time: 168

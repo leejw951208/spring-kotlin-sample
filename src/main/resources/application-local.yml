@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import:
+      - classpath:import/local.properties
+  datasource:
+    hikari:
+      auto-commit: false
+      minimum-idle: 3
+      maximum-pool-size: 10
+
+springdoc:
+  packages-to-scan: com.cnai.platform.platformbackendbase
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  model-and-view-allowed: true
+  cache:
+    disabled: true
+  api-docs:
+    groups:
+      enabled: true
+    path: /docs
+  swagger-ui:
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+    groups-order: asc
+    display-request-duration: true
+    url: /docs
+    disable-swagger-default-url: true
