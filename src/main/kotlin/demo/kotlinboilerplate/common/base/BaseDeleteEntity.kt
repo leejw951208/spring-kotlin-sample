@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.common.base
 
-import demo.kotlinboilerplate.common.security.SecurityUtil
+import demo.kotlinboilerplate.common.security.SecurityContextUtil
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass
 import java.time.LocalDateTime
@@ -18,7 +18,7 @@ class BaseDeleteEntity(
         fun softDelete(): BaseDeleteEntity {
             return BaseDeleteEntity(
                 deleted = true,
-                deletedBy = SecurityUtil.getUserId(),
+                deletedBy = SecurityContextUtil.getUserId(),
                 deletedAt = LocalDateTime.now(),
             )
         }

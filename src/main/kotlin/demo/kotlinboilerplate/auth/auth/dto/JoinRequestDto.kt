@@ -15,5 +15,5 @@ data class JoinRequestDto(
     @field:NotBlank(message = "상태값은 필수입니다.")
     val status: UserStatusEnum,
     @field:NotEmpty(message = "권한은 필수입니다.")
-    val userRoles: List<UserRoleEnum>,
+    val roles: List<UserRoleEnum>,
 )

@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 
-@Table(name = "token")
+@Table(name = "t_token")
 @Entity
 class TokenEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

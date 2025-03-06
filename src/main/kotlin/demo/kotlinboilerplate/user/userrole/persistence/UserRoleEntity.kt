@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 
-@Table(name = "user_role")
+@Table(name = "t_user_role")
 @Entity
 class UserRoleEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

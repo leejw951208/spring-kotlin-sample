@@ -12,8 +12,10 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.DynamicUpdate
 
-@Table(name = "user")
+@DynamicUpdate
+@Table(name = "t_user")
 @Entity
 class UserEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,7 +17,7 @@ class UserRoleMapper {
         dto: JoinRequestDto,
         user: User,
     ): List<UserRole> {
-        return dto.userRoles.map { roleEnum: UserRoleEnum -> UserRole(null, user.id!!, roleEnum) }
+        return dto.roles.map { roleEnum: UserRoleEnum -> UserRole(null, user.id!!, roleEnum) }
     }
 
     fun toEntity(roles: List<UserRole>): List<UserRoleEntity> {

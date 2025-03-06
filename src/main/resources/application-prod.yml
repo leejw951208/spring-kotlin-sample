@@ -9,3 +9,6 @@ spring:
       auto-commit: false
       minimum-idle: 3
       maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate

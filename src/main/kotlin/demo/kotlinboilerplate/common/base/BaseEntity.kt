@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.common.base
 
-import demo.kotlinboilerplate.common.security.SecurityUtil
+import demo.kotlinboilerplate.common.security.SecurityContextUtil
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass
@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 class BaseEntity(
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
-    val createdBy: Long = SecurityUtil.getUserId(),
+    val createdBy: Long = SecurityContextUtil.getUserId(),
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
