@@ -1,6 +1,9 @@
 package demo.kotlinboilerplate.common.security.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import demo.kotlinboilerplate.common.exception.BaseException
+import demo.kotlinboilerplate.common.exception.ExceptionEnum
+import demo.kotlinboilerplate.common.exception.ExceptionResponseDto
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
@@ -25,7 +28,7 @@ class CustomExceptionFilter(
     ) {
         try {
             filterChain.doFilter(request, response)
-        } catch (ex: ResponseStatusException) {
+        } catch (ex: BaseException) {
             setErrorResponse(request, response, ex)
         }
     }
@@ -33,17 +36,17 @@ class CustomExceptionFilter(
     private fun setErrorResponse(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        ex: ResponseStatusException,
+        ex: BaseException,
     ) {
-        response.status = ex.statusCode.value()
+        val exception = ex.exceptionEnum
+        response.status = exception.status
         response.contentType = MediaType.APPLICATION_JSON_VALUE
 
-        val map = HashMap<String, Any>()
-        map["error"] = HttpStatus.valueOf(ex.statusCode.value())
-        map["path"] = request.requestURL
-        map["message"] = ex.reason.toString()
-        map["status"] = ex.statusCode.value()
-        map["timestamp"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-        response.writer.write(objectMapper.writeValueAsString(map))
+        response.writer.write(objectMapper.writeValueAsString(ExceptionResponseDto(
+            status = exception.status,
+            code = exception.code,
+        )))
+
+        return
     }
 }

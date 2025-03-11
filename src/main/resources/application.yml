@@ -6,10 +6,8 @@ server:
       charset: utf-8
 
 spring:
-  application:
-    name: kotlin-boiler-plate
-  #  profiles:
-  #    active: local
+  profiles:
+    active: local
   flyway:
     enabled: true
     baseline-on-migrate: true

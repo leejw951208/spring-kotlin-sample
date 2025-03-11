@@ -32,7 +32,6 @@ class LoggingFilter: OncePerRequestFilter() {
             } else {
                 doFilterWrapped(RequestWrapper(request), ResponseWrapper(response), filterChain)
             }
-            filterChain.doFilter(request, response)
         } finally {
             MDC.clear()
         }

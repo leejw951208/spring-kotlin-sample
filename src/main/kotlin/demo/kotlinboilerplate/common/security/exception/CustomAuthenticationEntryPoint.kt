@@ -16,7 +16,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver
 class CustomAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper,
 ) : AuthenticationEntryPoint {
-    private val logger = LoggerFactory.getLogger(CustomAccessDeniedHandler::class.java)
+    private val logger = LoggerFactory.getLogger(CustomAuthenticationEntryPoint::class.java)
 
     override fun commence(
         request: HttpServletRequest,
@@ -36,6 +36,5 @@ class CustomAuthenticationEntryPoint(
         response.characterEncoding = Charsets.UTF_8.name()
 
         response.writer.write(objectMapper.writeValueAsString(exceptionResponse))
-        response.writer.flush()
     }
 }

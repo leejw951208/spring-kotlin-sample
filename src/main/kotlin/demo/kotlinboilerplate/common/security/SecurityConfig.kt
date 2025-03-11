@@ -7,6 +7,7 @@ import demo.kotlinboilerplate.common.security.exception.CustomAccessDeniedHandle
 import demo.kotlinboilerplate.common.security.exception.CustomAuthenticationEntryPoint
 import demo.kotlinboilerplate.common.security.filter.CustomExceptionFilter
 import demo.kotlinboilerplate.common.security.filter.JwtAuthenticationFilter
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -37,11 +38,6 @@ class SecurityConfig(
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
-            .addFilterBefore(
-                JwtAuthenticationFilter(tokenProperties, tokenProvider),
-                UsernamePasswordAuthenticationFilter::class.java,
-            )
-            .addFilterBefore(CustomExceptionFilter(objectMapper), JwtAuthenticationFilter::class.java)
             .authorizeHttpRequests {
                 it.requestMatchers(*SecurityUrl.PUBLIC_URL_ARRAY).permitAll()
                 it.requestMatchers(*SecurityUrl.ROLE_USER_URL_ARRAY).hasRole("USER")
@@ -51,6 +47,11 @@ class SecurityConfig(
                 it.authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
                 it.accessDeniedHandler(CustomAccessDeniedHandler(objectMapper))
             }
+            .addFilterBefore(
+                JwtAuthenticationFilter(tokenProperties, tokenProvider),
+                UsernamePasswordAuthenticationFilter::class.java,
+            )
+            .addFilterBefore(CustomExceptionFilter(objectMapper), JwtAuthenticationFilter::class.java)
         return http.build()
     }
 
