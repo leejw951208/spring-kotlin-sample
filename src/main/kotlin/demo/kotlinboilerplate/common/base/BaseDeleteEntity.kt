@@ -8,19 +8,16 @@ import java.time.LocalDateTime
 @MappedSuperclass
 class BaseDeleteEntity(
     @Column(name = "deleted")
-    val deleted: Boolean? = false,
+    protected var deleted: Boolean? = false,
     @Column(name = "deleted_by")
-    val deletedBy: Long? = null,
+    protected var deletedBy: Long? = null,
     @Column(name = "deleted_at")
-    val deletedAt: LocalDateTime? = null,
+    protected var deletedAt: LocalDateTime? = null,
 ) : BaseEntity() {
-    companion object {
-        fun softDelete(): BaseDeleteEntity {
-            return BaseDeleteEntity(
-                deleted = true,
-                deletedBy = SecurityContextUtil.getUserId(),
-                deletedAt = LocalDateTime.now(),
-            )
-        }
+    fun delete() {
+        this.deleted = true
+        this.deletedBy = SecurityContextUtil.getUserId()
+        this.deletedAt = LocalDateTime.now()
     }
 }
+

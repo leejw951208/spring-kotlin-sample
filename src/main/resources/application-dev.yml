@@ -26,7 +26,7 @@ logging:
             bind: trace
 
 springdoc:
-  packages-to-scan: com.cnai.platform.platformbackendbase
+  packages-to-scan: demo.kotlinboilerplate
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   model-and-view-allowed: true
