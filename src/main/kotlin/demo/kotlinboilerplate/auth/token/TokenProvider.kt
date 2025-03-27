@@ -47,7 +47,7 @@ class TokenProvider(
                 .claims(accessClaims)
                 .issuer(tokenProperties.issuer)
                 .issuedAt(Date.from(Instant.now()))
-                .expiration(Date.from(Instant.now().plus(tokenProperties.accessTokenExpSecond, ChronoUnit.SECONDS)))
+                .expiration(Date.from(Instant.now().plus(tokenProperties.accessTokenExpirationSecond, ChronoUnit.SECONDS)))
                 .signWith(key, Jwts.SIG.HS256)
                 .compact()
 
@@ -56,7 +56,7 @@ class TokenProvider(
                 .claims(refreshClaims)
                 .issuer(tokenProperties.issuer)
                 .issuedAt(Date.from(Instant.now()))
-                .expiration(Date.from(Instant.now().plus(tokenProperties.refreshTokenExpSecond, ChronoUnit.SECONDS)))
+                .expiration(Date.from(Instant.now().plus(tokenProperties.refreshTokenExpirationSecond, ChronoUnit.SECONDS)))
                 .signWith(key, Jwts.SIG.HS256)
                 .compact()
 

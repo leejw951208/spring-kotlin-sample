@@ -1,6 +1,6 @@
 package demo.kotlinboilerplate.common.base
 
-import demo.kotlinboilerplate.common.security.SecurityContextUtil
+import demo.kotlinboilerplate.common.security.SecurityUtil
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass
 import java.time.LocalDateTime
@@ -16,7 +16,7 @@ class BaseDeleteEntity(
 ) : BaseEntity() {
     fun delete() {
         this.deleted = true
-        this.deletedBy = SecurityContextUtil.getUserId()
+        this.deletedBy = SecurityUtil.getUserId()
         this.deletedAt = LocalDateTime.now()
     }
 }

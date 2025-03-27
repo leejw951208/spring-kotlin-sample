@@ -6,10 +6,64 @@ server:
       charset: utf-8
 
 spring:
-  profiles:
-    active: local
+#  profiles:
+#    active: local
+  config:
+    import: optional:file:env/.env.${spring.profiles.active:local}[.properties]
   flyway:
     enabled: true
     baseline-on-migrate: true
     baseline-version: 0
     clean-disabled: true
+  datasource:
+    hikari:
+      auto-commit: false
+      minimum-idle: 3
+      maximum-pool-size: 10
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: ${LOGGING_SQL_SHOW}
+        format_sql: ${LOGGING_SQL_SHOW}
+
+logging:
+  level:
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: trace
+
+springdoc:
+  packages-to-scan: demo.kotlinboilerplate
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  model-and-view-allowed: true
+  cache:
+    disabled: true
+  api-docs:
+    groups:
+      enabled: true
+    path: /docs
+  swagger-ui:
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+    groups-order: asc
+    display-request-duration: true
+    url: /docs
+    disable-swagger-default-url: true
+    persist-authorization: true
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  prefix: ${JWT_PREFIX}
+  header: ${JWT_HEADER}
+  issuer: ${JWT_ISSUER}
+  access-token-expiration-second: ${JWT_ACCESS_TOKEN_EXPIRATION_SECOND}
+  refresh-token-expiration-second: ${JWT_REFRESH_TOKEN_EXPIRATION_SECOND}

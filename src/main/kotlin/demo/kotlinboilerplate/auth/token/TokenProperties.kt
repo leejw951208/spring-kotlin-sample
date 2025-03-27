@@ -8,6 +8,6 @@ data class TokenProperties(
     val prefix: String,
     val header: String,
     val issuer: String,
-    val accessTokenExpSecond: Long,
-    val refreshTokenExpSecond: Long,
+    val accessTokenExpirationSecond: Long,
+    val refreshTokenExpirationSecond: Long,
 )

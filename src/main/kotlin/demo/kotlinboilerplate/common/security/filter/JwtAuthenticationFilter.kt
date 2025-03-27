@@ -42,6 +42,6 @@ class JwtAuthenticationFilter(
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return SecurityUrl.PUBLIC_URL_ARRAY.map { "/api/v1$it" }.any { request.requestURI.equals(it) }
+        return SecurityUrl.PUBLIC_URLS.map { "/api/v1$it" }.any { request.requestURI.equals(it) }
     }
 }
