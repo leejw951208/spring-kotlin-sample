@@ -30,7 +30,7 @@ class UserController(
         @Parameter(name = "id", description = "사용자 ID", example = "1")
         @PathVariable id: Long,
     ): ResponseEntity<UserResponseDto> {
-        return ResponseEntity.ok(userMapper.toDto(userService.findUser(id)))
+        return ResponseEntity.ok(userMapper.toDto(userService.findOne(id)))
     }
 
 }

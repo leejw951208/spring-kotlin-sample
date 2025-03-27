@@ -16,7 +16,7 @@ class PrincipalDetailsService(
 ) : UserDetailsService {
     override fun loadUserByUsername(email: String): UserDetails {
         val findUser =
-            userRepository.findUser(email)
+            userRepository.findOne(email)
                 ?: throw BaseException(ExceptionEnum.NOT_FOUND_USER, this::class.java.name, null)
 
         val findRoleList = userRoleRepository.findUserRoles(findUser.id!!)

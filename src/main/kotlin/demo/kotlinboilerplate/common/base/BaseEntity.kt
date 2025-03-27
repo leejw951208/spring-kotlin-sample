@@ -16,14 +16,14 @@ import java.time.LocalDateTime
 class BaseEntity(
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
-    val createdBy: Long = SecurityUtil.getUserId(),
+    protected var createdBy: Long? = null,
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    protected var createdAt: LocalDateTime? = null,
     @LastModifiedBy
-    @Column(name = "updated_by")
-    val updatedBy: Long? = null,
+    @Column(name = "updated_by", insertable = false)
+    protected var updatedBy: Long? = null,
     @LastModifiedDate
-    @Column(name = "updated_at")
-    val updatedAt: LocalDateTime? = null,
+    @Column(name = "updated_at", insertable = false)
+    protected var updatedAt: LocalDateTime? = null,
 )

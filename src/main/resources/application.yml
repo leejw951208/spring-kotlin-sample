@@ -37,7 +37,7 @@ logging:
       hibernate:
         orm:
           jdbc:
-            bind: trace
+            bind: ${LOGGING_SQL_LEVEL}
 
 springdoc:
   packages-to-scan: demo.kotlinboilerplate

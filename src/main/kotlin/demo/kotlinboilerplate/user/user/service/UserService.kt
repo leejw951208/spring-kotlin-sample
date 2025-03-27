@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 class UserService(
     private val userRepository: UserRepository,
 ) {
-    fun findUser(id: Long): User {
-        return userRepository.findUser(id) ?: throw BaseException(ExceptionEnum.NOT_FOUND_USER, this::class.java.name, null)
+    fun findOne(id: Long): User {
+        return userRepository.findOne(id) ?: throw BaseException(ExceptionEnum.NOT_FOUND_USER, this::class.java.name, null)
     }
 }

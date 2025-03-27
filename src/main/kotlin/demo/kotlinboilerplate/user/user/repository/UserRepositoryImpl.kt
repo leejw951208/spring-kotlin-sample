@@ -1,5 +1,6 @@
 package demo.kotlinboilerplate.user.user.repository
 
+import demo.kotlinboilerplate.common.jpa.SoftDeleteFilter
 import demo.kotlinboilerplate.user.user.domain.User
 import demo.kotlinboilerplate.user.user.mapper.UserMapper
 import demo.kotlinboilerplate.user.user.persistence.UserEntityRepository
@@ -11,12 +12,14 @@ class UserRepositoryImpl(
     private val userEntityRepository: UserEntityRepository,
     private val userMapper: UserMapper,
 ) : UserRepository {
-    override fun findUser(id: Long): User? {
+    @SoftDeleteFilter(true)
+    override fun findOne(id: Long): User? {
         val findUserEntity = userEntityRepository.findByIdOrNull(id) ?: return null
         return userMapper.toDomain(findUserEntity)
     }
 
-    override fun findUser(email: String): User? {
+    @SoftDeleteFilter(true)
+    override fun findOne(email: String): User? {
         val findUserEntity = userEntityRepository.findByEmail(email) ?: return null
         return userMapper.toDomain(findUserEntity)
     }
