@@ -20,8 +20,8 @@ import org.hibernate.annotations.DynamicUpdate
 class UserEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    @Column(name = "email", nullable = false, length = 50, unique = true)
-    val email: String,
+    @Column(name = "login_id", nullable = false, length = 50, unique = true)
+    val loginId: String,
     @Convert(converter = PasswordConverter::class)
     @Column(name = "password", nullable = false)
     val password: String,

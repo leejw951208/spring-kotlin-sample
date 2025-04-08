@@ -1,12 +1,15 @@
 package demo.kotlinboilerplate.user.user.dto
 
+import demo.kotlinboilerplate.user.user.enumeration.UserStatusEnum
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class UserResponseDto(
     @Schema(description = "사용자 ID", example = "1")
     val id: Long?,
-    @Schema(description = "이메일", example = "test@test.com")
-    val email: String?,
-    @Schema(description = "이름", example = "테스트")
+    @Schema(description = "아이디", example = "test@gmail.com")
+    val loginId: String?,
+    @Schema(description = "이름", example = "이진우")
     val name: String?,
+    @Schema(description = "계정 상태", example = "ACTIVE")
+    val status: UserStatusEnum,
 )

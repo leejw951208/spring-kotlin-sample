@@ -9,18 +9,44 @@ import org.springframework.stereotype.Component
 @Component
 class UserMapper {
     fun toDomain(entity: UserEntity): User {
-        return User(entity.id, entity.email, entity.password, entity.name, entity.status)
+        return User(
+            entity.id,
+            entity.loginId,
+            entity.password,
+            entity.name,
+            entity.status,
+        )
     }
 
     fun toDomain(dto: JoinRequestDto): User {
-        return User(null, dto.email, dto.password, dto.name, dto.status)
+        return User(null, dto.loginId, dto.password, dto.name, dto.status)
     }
 
-    fun toEntity(domain: User): UserEntity {
-        return UserEntity(domain.id, domain.email, domain.password, domain.name, domain.status)
+    fun toDomain(entityList: List<UserEntity?>): List<User> {
+        return entityList.filterNotNull().map { entity ->
+            User(
+                entity.id,
+                entity.loginId,
+                entity.password,
+                entity.name,
+                entity.status,
+            )
+        }
     }
 
-    fun toDto(domain: User): UserResponseDto {
-        return UserResponseDto(id = domain.id, email = domain.email, name = domain.name)
+    fun toEntity(user: User): UserEntity {
+        return UserEntity(user.id, user.loginId, user.password, user.name, user.status)
     }
+
+    fun toDto(user: User): UserResponseDto {
+        return UserResponseDto(user.id, user.loginId, user.name, user.status)
+    }
+
+    fun toDto(userList: List<User>): List<UserResponseDto> {
+        return userList.map {
+                user ->
+            UserResponseDto(user.id, user.loginId, user.name, user.status)
+        }
+    }
+
 }
