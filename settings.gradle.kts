@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-boiler-plate"
+rootProject.name = "spring-kotlin-sample"

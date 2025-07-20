@@ -81,10 +81,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-flyway {
-    url = project.findProperty("db.url")?.toString()
-    user = project.findProperty("db.user")?.toString()
-    password = project.findProperty("db.password")?.toString()
-    schemas = arrayOf("public")
-    cleanDisabled = false
-}
+//flyway {
+//    url = project.findProperty("db.url")?.toString()
+//    user = project.findProperty("db.user")?.toString()
+//    password = project.findProperty("db.password")?.toString()
+//    schemas = arrayOf("public")
+//    cleanDisabled = false
+//}
