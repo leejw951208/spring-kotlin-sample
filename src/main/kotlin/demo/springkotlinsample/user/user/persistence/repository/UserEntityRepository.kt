@@ -19,5 +19,4 @@ interface UserEntityRepository : JpaRepository<UserEntity, Long>, UserEntityCust
         loginId: String,
         password: String,
     ): UserEntity?
-
 }

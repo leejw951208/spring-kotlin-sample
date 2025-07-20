@@ -8,7 +8,7 @@ import org.springframework.util.StreamUtils
 import java.io.ByteArrayInputStream
 import java.io.IOException
 
-class RequestWrapper(request: HttpServletRequest): HttpServletRequestWrapper(request) {
+class RequestWrapper(request: HttpServletRequest) : HttpServletRequestWrapper(request) {
     private val cachedInputStream: ByteArray = StreamUtils.copyToByteArray(request.inputStream)
 
     @Throws(IOException::class)

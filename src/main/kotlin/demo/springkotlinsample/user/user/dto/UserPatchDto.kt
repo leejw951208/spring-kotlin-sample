@@ -10,5 +10,4 @@ data class UserPatchDto(
     val loginId: String? = null,
     @Schema(description = "계정 상태", example = "ACTIVE", required = false)
     val status: UserStatusEnum? = null,
-) {
-}
+)

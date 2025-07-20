@@ -17,12 +17,12 @@ import java.util.UUID
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class LoggingFilter: OncePerRequestFilter() {
+class LoggingFilter : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        filterChain: FilterChain
+        filterChain: FilterChain,
     ) {
         try {
             val uuid = UUID.randomUUID()
@@ -38,7 +38,11 @@ class LoggingFilter: OncePerRequestFilter() {
     }
 
     @Throws(ServletException::class, IOException::class)
-    fun doFilterWrapped(request: RequestWrapper, response: ResponseWrapper, filterChain: FilterChain) {
+    fun doFilterWrapped(
+        request: RequestWrapper,
+        response: ResponseWrapper,
+        filterChain: FilterChain,
+    ) {
         try {
             logRequest(request)
             filterChain.doFilter(request, response)
@@ -51,14 +55,15 @@ class LoggingFilter: OncePerRequestFilter() {
     @Throws(IOException::class)
     fun logRequest(request: RequestWrapper) {
         val queryString = request.queryString
-        val uri: String? = if (queryString == null) {
-            request.requestURI
-        } else {
-            request.requestURI + queryString
-        }
-        logger.info("Request: ${request.method}, uri: ${uri}, contentType: ${request.contentType}")
+        val uri: String? =
+            if (queryString == null) {
+                request.requestURI
+            } else {
+                request.requestURI + queryString
+            }
+        logger.info("Request: ${request.method}, uri: $uri, contentType: ${request.contentType}")
 
-        logPayload("Request", request.contentType, request.inputStream);
+        logPayload("Request", request.contentType, request.inputStream)
     }
 
     @Throws(IOException::class)
@@ -67,7 +72,11 @@ class LoggingFilter: OncePerRequestFilter() {
     }
 
     @Throws(IOException::class)
-    fun logPayload(prefix: String, contentType: String?, inputStream: InputStream) {
+    fun logPayload(
+        prefix: String,
+        contentType: String?,
+        inputStream: InputStream,
+    ) {
         val mediaType = MediaType.valueOf(contentType ?: "application/json")
         val visible = isVisible(mediaType)
         if (visible) {
@@ -82,16 +91,17 @@ class LoggingFilter: OncePerRequestFilter() {
     }
 
     fun isVisible(mediaType: MediaType): Boolean {
-        val visibleTypes = listOf(
-            MediaType.valueOf("text/*"),
-            MediaType.APPLICATION_FORM_URLENCODED,
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.valueOf("application/*+json"),
-            MediaType.valueOf("application/*+xml"),
-            MediaType.MULTIPART_FORM_DATA,
-            MediaType.TEXT_PLAIN,
-        )
+        val visibleTypes =
+            listOf(
+                MediaType.valueOf("text/*"),
+                MediaType.APPLICATION_FORM_URLENCODED,
+                MediaType.APPLICATION_JSON,
+                MediaType.APPLICATION_XML,
+                MediaType.valueOf("application/*+json"),
+                MediaType.valueOf("application/*+xml"),
+                MediaType.MULTIPART_FORM_DATA,
+                MediaType.TEXT_PLAIN,
+            )
         return visibleTypes.any { it.includes(mediaType) }
     }
 }

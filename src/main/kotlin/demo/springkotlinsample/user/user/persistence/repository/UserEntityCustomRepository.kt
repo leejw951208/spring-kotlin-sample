@@ -11,4 +11,3 @@ interface UserEntityCustomRepository {
         condition: UserSearchConditionDto,
     ): Page<UserEntity?>
 }
-

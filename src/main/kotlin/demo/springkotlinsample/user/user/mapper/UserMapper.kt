@@ -48,5 +48,4 @@ class UserMapper {
             UserResponseDto(user.id, user.loginId, user.name, user.status)
         }
     }
-
 }

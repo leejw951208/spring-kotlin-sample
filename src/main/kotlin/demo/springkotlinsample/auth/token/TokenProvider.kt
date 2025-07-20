@@ -33,13 +33,13 @@ class TokenProvider(
             Jwts.claims()
                 .add("id", id)
                 .add("roles", roles)
-                .add("type", "access")
+                .add("type", "ac")
                 .build()
 
         val refreshClaims =
             Jwts.claims()
                 .add("id", id)
-                .add("type", "refresh")
+                .add("type", "rf")
                 .build()
 
         val createdAccessToken =

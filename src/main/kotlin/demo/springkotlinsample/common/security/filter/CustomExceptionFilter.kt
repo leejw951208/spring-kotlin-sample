@@ -37,10 +37,14 @@ class CustomExceptionFilter(
         response.status = exception.status
         response.contentType = MediaType.APPLICATION_JSON_VALUE
 
-        response.writer.write(objectMapper.writeValueAsString(ExceptionResponseDto(
-            status = exception.status,
-            code = exception.code,
-        )))
+        response.writer.write(
+            objectMapper.writeValueAsString(
+                ExceptionResponseDto(
+                    status = exception.status,
+                    code = exception.code,
+                ),
+            ),
+        )
 
         return
     }

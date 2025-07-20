@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val userMapper: UserMapper
+    private val userMapper: UserMapper,
 ) {
     fun findOne(id: Long): User {
         return userRepository.findOne(id) ?: throw BaseException(ExceptionEnum.NOT_FOUND_USER, this::class.java.name, null)

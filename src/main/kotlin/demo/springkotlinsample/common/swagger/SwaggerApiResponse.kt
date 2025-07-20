@@ -9,5 +9,5 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 @ApiResponses(value = [ApiResponse()])
 annotation class SwaggerApiResponse(
     val responseCode: String,
-    val description: String
+    val description: String,
 )
